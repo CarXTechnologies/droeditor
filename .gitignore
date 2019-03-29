@@ -6,11 +6,6 @@ Library/*
 *.userprefs
 Temp
 /Cars/
-/Maps/
-/Assets/Maps/
-/Assets/Maps.meta
-/Assets/Resources/
-/Assets/Resources.meta
 obj
 /*.suo
 .vs

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using TrackLayout.Data;
+using UnityEditor;
 using UnityEngine;
 
 public class MapMetaInfo : MonoBehaviour
@@ -77,7 +78,22 @@ public class MapMetaInfo : MonoBehaviour
 				writer.WriteStartDocument();
 				writer.WriteStartElement("list");
 				writer.WriteAttributeString("id", "0");
-				writer.WriteAttributeString("mainObj", "map.obj");
+				var files = "";
+				for (int i = 0; i < transform.childCount; ++i)
+				{
+					var itr = transform.GetChild(i);
+					var path = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(itr);
+					if (!string.IsNullOrEmpty(path))
+					{
+						files += (new FileInfo(path)).Name;
+						if(i != transform.childCount - 1)
+						{
+							files += ",";
+						}
+					}
+				}
+				writer.WriteAttributeString("files", files);
+
 				foreach (var itr in configs)
 				{
 					writer.WriteStartElement("cfg");
